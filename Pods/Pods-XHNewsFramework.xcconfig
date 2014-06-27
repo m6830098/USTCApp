@@ -1,0 +1,2 @@
+PODS_XHNEWSFRAMEWORK_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/XHNewsFramework"
+PODS_XHNEWSFRAMEWORK_OTHER_LDFLAGS = -framework CoreGraphics -framework Foundation -framework UIKit -framework XHNewsFramework

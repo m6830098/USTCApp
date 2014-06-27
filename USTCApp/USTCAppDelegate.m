@@ -7,12 +7,55 @@
 //
 
 #import "USTCAppDelegate.h"
+#import "LeftController.h"
+#import "RightController.h"
+#import "MainController.h"
+#import <LBBlurredImage/UIImageView+LBBlurredImage.h>
+#import "MainViewController.h"
+#import "AFNetworkActivityIndicatorManager.h"
+
 
 @implementation USTCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // Override point for customization after application launch.
+    self.window                                        = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+
+    MainViewController *main = [[MainViewController alloc]init];
+    
+    UINavigationController *navigationController       = [[UINavigationController alloc] initWithRootViewController:main];
+
+    LeftController *leftViewController                 = [[LeftController alloc]init];
+    
+   
+    RightController *rightViewControler                = [[RightController alloc]init];
+    UINavigationController *navRight = [[UINavigationController alloc ]initWithRootViewController:rightViewControler];
+    
+    
+    
+    RESideMenu *sideMenuViewController                 = [[RESideMenu alloc]initWithContentViewController:navigationController leftMenuViewController:leftViewController rightMenuViewController:navRight];
+    
+    
+    
+    sideMenuViewController.backgroundImage             = [UIImage imageNamed:@"bgBlue.png"];
+
+    sideMenuViewController.menuPreferredStatusBarStyle = 1;// UIStatusBarStyleLightContent
+//    sideMenuViewController.delegate = (id<RESideMenuDelegate>)self;
+    sideMenuViewController.delegate                    = self;
+    sideMenuViewController.contentViewShadowColor      = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset     = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity    = 0.6;
+    sideMenuViewController.contentViewShadowRadius     = 12;
+    sideMenuViewController.contentViewShadowEnabled    = YES;
+    
+    self.window.rootViewController = sideMenuViewController;
+    
+//    self.window.backgroundColor = [UIColor whiteColor];
+    
+    [self.window makeKeyAndVisible];
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     return YES;
 }
 							
@@ -43,4 +86,26 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark -
+#pragma mark RESideMenu Delegate
+
+- (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"willShowMenuViewController: %@", NSStringFromClass([menuViewController class]));
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu didShowMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"didShowMenuViewController: %@", NSStringFromClass([menuViewController class]));
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu willHideMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"willHideMenuViewController: %@", NSStringFromClass([menuViewController class]));
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu didHideMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"didHideMenuViewController: %@", NSStringFromClass([menuViewController class]));
+}
 @end

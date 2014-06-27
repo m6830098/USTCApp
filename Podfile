@@ -1,0 +1,6 @@
+platform :ios, '7.0'
+pod 'XHNewsFramework', '~> 0.1.0'
+pod 'LBBlurredImage'
+pod 'TSMessages'
+pod 'REComposeViewController', '~> 2.3.1'
+pod 'ReactiveCocoa'
